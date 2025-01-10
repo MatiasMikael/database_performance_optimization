@@ -1,0 +1,4 @@
+2025-01-09 19:23:24,473 - INFO - Executed: CREATE INDEX IF NOT EXISTS idx_quantity ON orders (quantity);
+2025-01-09 19:23:24,480 - INFO - Executed: CREATE INDEX IF NOT EXISTS idx_user_id ON orders (user_id);
+2025-01-09 19:23:24,485 - INFO - Executed: CREATE INDEX IF NOT EXISTS idx_product_id ON orders (product_id);
+2025-01-09 19:23:24,487 - INFO - Indexes created successfully!

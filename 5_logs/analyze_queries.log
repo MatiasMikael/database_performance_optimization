@@ -1,0 +1,80 @@
+2025-01-09 19:23:05,645 - INFO - Analyzing query: SELECT * FROM users;
+2025-01-09 19:23:05,656 - INFO - Query analysis:
+Seq Scan on users  (cost=0.00..0.00 rows=1 width=448) (actual time=0.017..0.018 rows=0 loops=1)
+Planning:
+  Buffers: shared hit=52
+Planning Time: 3.299 ms
+Execution Time: 0.040 ms
+
+2025-01-09 19:23:05,739 - INFO - Analyzing query: SELECT * FROM products;
+2025-01-09 19:23:06,058 - INFO - Query analysis:
+Seq Scan on products  (cost=0.00..0.00 rows=1 width=242) (actual time=0.031..0.031 rows=0 loops=1)
+Planning:
+  Buffers: shared hit=27
+Planning Time: 2.560 ms
+Execution Time: 0.050 ms
+
+2025-01-09 19:23:06,061 - INFO - Analyzing query: SELECT * FROM orders WHERE quantity > 2;
+2025-01-09 19:23:06,151 - INFO - Query analysis:
+Seq Scan on orders  (cost=0.00..0.00 rows=1 width=24) (actual time=0.138..0.139 rows=0 loops=1)
+  Filter: (quantity > 2)
+Planning:
+  Buffers: shared hit=26
+Planning Time: 3.368 ms
+Execution Time: 0.168 ms
+
+2025-01-09 19:23:06,152 - INFO - Analyzing query: SELECT u.name, p.name AS product_name, o.quantity FROM orders o      JOIN users u ON o.user_id = u.id      JOIN products p ON o.product_id = p.id      WHERE o.quantity > 3;
+2025-01-09 19:23:06,184 - INFO - Query analysis:
+Nested Loop  (cost=0.00..0.03 rows=1 width=440) (actual time=0.046..0.047 rows=0 loops=1)
+  Join Filter: (p.id = o.product_id)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=226) (actual time=0.046..0.046 rows=0 loops=1)
+        Join Filter: (u.id = o.user_id)
+        ->  Seq Scan on orders o  (cost=0.00..0.00 rows=1 width=12) (actual time=0.044..0.045 rows=0 loops=1)
+              Filter: (quantity > 3)
+        ->  Seq Scan on users u  (cost=0.00..0.00 rows=1 width=222) (never executed)
+  ->  Seq Scan on products p  (cost=0.00..0.00 rows=1 width=222) (never executed)
+Planning:
+  Buffers: shared hit=118
+Planning Time: 1.475 ms
+Execution Time: 0.101 ms
+
+2025-01-09 19:23:48,056 - INFO - Analyzing query: SELECT * FROM users;
+2025-01-09 19:23:48,071 - INFO - Query analysis:
+Seq Scan on users  (cost=0.00..0.00 rows=1 width=448) (actual time=0.295..0.296 rows=0 loops=1)
+Planning:
+  Buffers: shared hit=52
+Planning Time: 5.766 ms
+Execution Time: 0.675 ms
+
+2025-01-09 19:23:48,071 - INFO - Analyzing query: SELECT * FROM products;
+2025-01-09 19:23:48,081 - INFO - Query analysis:
+Seq Scan on products  (cost=0.00..0.00 rows=1 width=242) (actual time=0.020..0.020 rows=0 loops=1)
+Planning:
+  Buffers: shared hit=27
+Planning Time: 2.238 ms
+Execution Time: 0.037 ms
+
+2025-01-09 19:23:48,081 - INFO - Analyzing query: SELECT * FROM orders WHERE quantity > 2;
+2025-01-09 19:23:48,096 - INFO - Query analysis:
+Seq Scan on orders  (cost=0.00..0.00 rows=1 width=24) (actual time=0.019..0.020 rows=0 loops=1)
+  Filter: (quantity > 2)
+Planning:
+  Buffers: shared hit=27
+Planning Time: 2.326 ms
+Execution Time: 0.041 ms
+
+2025-01-09 19:23:48,096 - INFO - Analyzing query: SELECT u.name, p.name AS product_name, o.quantity FROM orders o      JOIN users u ON o.user_id = u.id      JOIN products p ON o.product_id = p.id      WHERE o.quantity > 3;
+2025-01-09 19:23:48,105 - INFO - Query analysis:
+Nested Loop  (cost=0.00..0.03 rows=1 width=440) (actual time=0.044..0.045 rows=0 loops=1)
+  Join Filter: (p.id = o.product_id)
+  ->  Nested Loop  (cost=0.00..0.01 rows=1 width=226) (actual time=0.043..0.044 rows=0 loops=1)
+        Join Filter: (u.id = o.user_id)
+        ->  Seq Scan on orders o  (cost=0.00..0.00 rows=1 width=12) (actual time=0.042..0.042 rows=0 loops=1)
+              Filter: (quantity > 3)
+        ->  Seq Scan on users u  (cost=0.00..0.00 rows=1 width=222) (never executed)
+  ->  Seq Scan on products p  (cost=0.00..0.00 rows=1 width=222) (never executed)
+Planning:
+  Buffers: shared hit=118
+Planning Time: 0.948 ms
+Execution Time: 0.092 ms
+
